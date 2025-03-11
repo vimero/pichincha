@@ -1,0 +1,33 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    hikari:
+      data-source-properties:
+        useServerPrepStmts: 'true'
+        cacheResultSetMetadata: 'true'
+        cacheServerConfiguration: 'true'
+        cachePrepStmts: 'true'
+        rewriteBatchedStatements: 'true'
+        elideSetAutoCommits: 'true'
+        useLocalSessionState: 'true'
+        prepStmtCacheSize: '250'
+        maintainTimeStats: 'false'
+        prepStmtCacheSqlLimit: '2048'
+      idle-timeout: '300000'
+      maximum-pool-size: '10'
+      connection-timeout: '50000'
+      pool-name: ConnPool
+      max-lifetime: '900000'
+      minimum-idle: '10'
+    driver-class-name: org.postgresql.Driver
+    username: ${DATABASE_USER:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:postgres}
+logging:
+  level:
+    com:
+      zaxxer:
+        hikari:
+          HikariConfig: DEBUG
+          nodeValue: TRACE
