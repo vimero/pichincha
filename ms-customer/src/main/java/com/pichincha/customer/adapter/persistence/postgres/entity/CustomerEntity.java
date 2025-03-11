@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "customer")
-public class CustomerEntity extends PersonEntity{
+public class CustomerEntity extends PersonEntity {
 
 
     @Column(nullable = false, length = 50)

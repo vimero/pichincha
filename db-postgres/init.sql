@@ -1,0 +1,8 @@
+CREATE USER customer_user WITH PASSWORD 'JnnKRJrpTX1LRlq';
+CREATE DATABASE customers;
+GRANT ALL PRIVILEGES ON DATABASE customers TO customer_user;
+
+
+CREATE USER account_user WITH PASSWORD 'qbNTjx4etHSnFaP';
+CREATE DATABASE accounts;
+GRANT ALL PRIVILEGES ON DATABASE accounts TO account_user;
