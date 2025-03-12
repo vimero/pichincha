@@ -1,6 +1,10 @@
 version: '3.8'
 
+networks:
+  bank-network:
+
 services:
+
   db:
     image: 'postgres-db:latest'
     build:
@@ -11,6 +15,8 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5433:5432"
+    networks:
+      - bank-network
 
   ms-customer:
     image: 'ms-customer:latest'
@@ -24,10 +30,14 @@ services:
         - DATABASE_HOST=db
         - DATABASE_PORT=5432
         - DATABASE_NAME=customers
+        - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     ports:
       - "8080:8080"
     links:
       - db
+      - kafka
+    networks:
+      - bank-network
 
   ms-account:
     image: 'ms-account:latest'
@@ -45,3 +55,47 @@ services:
       - "8082:8080"
     links:
       - db
+    networks:
+      - bank-network
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 2181:2181
+    networks:
+      - bank-network
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:9092
+    networks:
+      - bank-network
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    depends_on:
+      - kafka
+    ports:
+      - 8090:8080
+    networks:
+      - bank-network
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+
