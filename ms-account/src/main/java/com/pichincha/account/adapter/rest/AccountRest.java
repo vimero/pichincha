@@ -2,11 +2,13 @@ package com.pichincha.account.adapter.rest;
 
 
 import com.pichincha.account.application.domain.dto.AccountDTO;
+import com.pichincha.account.application.domain.dto.MovementDTO;
 import com.pichincha.account.application.exception.NotFoundException;
 import com.pichincha.account.application.usecase.account.CreateAccountUseCase;
 import com.pichincha.account.application.usecase.account.DeleteAccountUseCase;
 import com.pichincha.account.application.usecase.account.EditAccountUseCase;
 import com.pichincha.account.application.usecase.account.ReadAccountUseCase;
+import com.pichincha.account.application.usecase.movement.ReadMovementUseCase;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,25 +32,36 @@ public class AccountRest {
     private ReadAccountUseCase readAccountUseCase;
     private EditAccountUseCase editAccountUseCase;
     private DeleteAccountUseCase deleteAccountUseCase;
+    private ReadMovementUseCase readMovementUseCase;
 
     @GetMapping
-    public List<AccountDTO> read(){
+    public List<AccountDTO> read() {
         return readAccountUseCase.read();
     }
 
     @PostMapping
-    public AccountDTO create(@Valid @RequestBody AccountDTO request){
+    public AccountDTO create(@Valid @RequestBody AccountDTO request) {
         return createAccountUseCase.create(request);
     }
 
     @PutMapping("/{id}")
-    public AccountDTO edit(@PathVariable("id")Long id, @RequestParam double balance) throws NotFoundException {
+    public AccountDTO edit(@PathVariable("id") Long id, @RequestParam double balance) throws NotFoundException {
         return editAccountUseCase.edit(id, balance);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id")Long id) throws NotFoundException {
+    public void delete(@PathVariable("id") Long id) throws NotFoundException {
         deleteAccountUseCase.delete(id);
+    }
+
+    @GetMapping("/{id}/movements")
+    public List<MovementDTO> movements(@PathVariable("id") Long id,
+                                       @RequestParam(value = "from", required = false) String from,
+                                       @RequestParam(value = "to", required = false) String to) throws NotFoundException {
+        if( from == null || to == null) {
+            return readMovementUseCase.findByAccount(id);
+        }
+        return readMovementUseCase.findByAccountAndRange(id, from, to);
     }
 
 }

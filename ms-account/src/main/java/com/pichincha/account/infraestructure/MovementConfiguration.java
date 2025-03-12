@@ -1,5 +1,6 @@
 package com.pichincha.account.infraestructure;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pichincha.account.application.mapper.MovementMapper;
 import com.pichincha.account.application.port.input.PersistenceAccountPort;
 import com.pichincha.account.application.port.input.PersistenceMovementPort;
@@ -18,8 +19,9 @@ public class MovementConfiguration {
     }
 
     @Bean
-    ReadMovementUseCase readMovementUseCase(PersistenceMovementPort persistenceMovementPort, MovementMapper movementMapper) {
-        return new ReadMovementUseCase(persistenceMovementPort, movementMapper);
+    ReadMovementUseCase readMovementUseCase(PersistenceMovementPort persistenceMovementPort, PersistenceAccountPort persistenceAccountPort,
+                                            MovementMapper movementMapper, ObjectMapper objectMapper) {
+        return new ReadMovementUseCase(persistenceMovementPort, persistenceAccountPort, movementMapper, objectMapper);
     }
 
 }

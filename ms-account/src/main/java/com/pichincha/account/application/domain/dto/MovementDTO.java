@@ -17,4 +17,6 @@ public class MovementDTO {
 
     private long account;
 
+    private String date;
+
 }
