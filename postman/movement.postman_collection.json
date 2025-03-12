@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "3934c3b0-c798-4818-a21f-2531fb41ab49",
+		"name": "movement",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2900850"
+	},
+	"item": [
+		{
+			"name": "movements  - DEPOSIT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"account\": 1,\n    \"amount\": 10,\n    \"type\": \"DEPOSIT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/api/v1/movements",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"movements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "movements - WITHDRAWAL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"account\": 1,\n    \"amount\": 5,\n    \"type\": \"WITHDRAWAL\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/api/v1/movements",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"movements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "movements",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/api/v1/movements",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"movements"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "c04d61f5-e340-40a9-8d3a-1375b33d3954",
+		"name": "account",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2900850"
+	},
+	"item": [
+		{
+			"name": "accounts",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customer\": 1,\n    \"type\": \"SAVINGS\",\n    \"status\": \"CREATED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/api/v1/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accounts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/api/v1/accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accounts/{accountId}/movements",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/api/v1/accounts/1/movements",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"accounts",
+						"1",
+						"movements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accounts/{accountId}/movements Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/api/v1/accounts/1/movements?from=11/03/2025&to=12/03/2025",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"accounts",
+						"1",
+						"movements"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "11/03/2025"
+						},
+						{
+							"key": "to",
+							"value": "12/03/2025"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
