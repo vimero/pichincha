@@ -9,6 +9,8 @@ public interface PersistenceAccountPort {
 
     AccountEntity save(AccountEntity entity);
 
+    AccountEntity update(AccountEntity entity);
+
     List<AccountEntity> read();
 
     AccountEntity find(Long id) throws NotFoundException;

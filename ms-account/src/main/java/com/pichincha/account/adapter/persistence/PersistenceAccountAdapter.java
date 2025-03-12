@@ -26,6 +26,11 @@ public class PersistenceAccountAdapter implements PersistenceAccountPort {
     }
 
     @Override
+    public AccountEntity update(AccountEntity entity) {
+        return accountRepository.save(entity);
+    }
+
+    @Override
     public List<AccountEntity> read() {
         return accountRepository.findAll();
     }
@@ -33,7 +38,7 @@ public class PersistenceAccountAdapter implements PersistenceAccountPort {
     @Override
     public AccountEntity find(Long id) throws NotFoundException {
         log.info("Find account by id {}", id);
-        return accountRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer " + id + " not found"));
+        return accountRepository.findById(id).orElseThrow(() -> new NotFoundException("Account " + id + " not found"));
     }
 
     @Override
@@ -43,6 +48,6 @@ public class PersistenceAccountAdapter implements PersistenceAccountPort {
     }
 
     private String getCode() {
-        return String.format("%020d" , accountRepository.count() + 1);
+        return String.format("%020d", accountRepository.count() + 1);
     }
 }

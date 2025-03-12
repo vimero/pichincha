@@ -2,20 +2,15 @@ package com.pichincha.account.adapter.persistence.postgres.entity;
 
 import com.pichincha.account.application.domain.type.AccountType;
 import com.pichincha.account.application.domain.type.Status;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "account")
-public class AccountEntity{
+public class AccountEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

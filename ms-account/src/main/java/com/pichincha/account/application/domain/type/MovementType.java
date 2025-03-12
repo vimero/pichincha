@@ -1,8 +1,8 @@
 package com.pichincha.account.application.domain.type;
 
-public enum AccountType {
+public enum MovementType {
 
-    SAVINGS,
-    CHECKING
+    DEPOSIT,
+    WITHDRAWAL
 
 }

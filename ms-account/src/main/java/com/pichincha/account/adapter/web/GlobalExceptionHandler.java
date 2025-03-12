@@ -1,6 +1,7 @@
 package com.pichincha.account.adapter.web;
 
 import com.pichincha.account.application.domain.error.RestErrorResponse;
+import com.pichincha.account.application.exception.BalanceNotAvailableException;
 import com.pichincha.account.application.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,6 +29,15 @@ public class GlobalExceptionHandler {
         return new RestErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 ex.getMessage(),
+                LocalDateTime.now());
+    }
+
+    @ExceptionHandler(BalanceNotAvailableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    RestErrorResponse handleBalanceNotAvailableException(BalanceNotAvailableException ex) {
+        return new RestErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                "Balance not available",
                 LocalDateTime.now());
     }
 }
